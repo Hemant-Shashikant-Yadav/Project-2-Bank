@@ -31,6 +31,7 @@ public:
 
     void loan();
     void goldLone();
+    void homeLone();
     void studentLoan();
     void personalLoan();
 };
@@ -82,7 +83,7 @@ int main()
     return 0;
 }
 
-
+// Main entities
 // 0.Bank
 void bank::bankMenu()
 {
@@ -96,7 +97,7 @@ void bank::bankMenu()
              << "1.Manager" << endl
              << "2.Cashier" << endl
              << "3.Customer" << endl
-             << "3.Exit" << endl
+             << "4.Exit" << endl
              << "Choose option = ";
         cin >> opt;
         if (opt == 4)
@@ -122,7 +123,7 @@ void bank::bankMenu()
         }
     }
 }
-// 1.Manager 
+// 1.Manager
 void manager::managerMenu()
 {
     cout << "Hello Manager" << endl;
@@ -141,7 +142,7 @@ void customer::customerMenu()
     while (1)
     {
         customer C;
-        cout << "Hello customer." << endl
+        cout << "\nHello customer." << endl
              << "Options = " << endl
              << "1.Log in to acount." << endl
              << "2.Create new bank account." << endl
@@ -178,4 +179,57 @@ void customer::customerMenu()
     }
 }
 
-// Customer class functions
+// Customer class -> customerMenu function's subfunctions
+void customer::customer_login()
+{
+    double accoutNo;
+    char password[50];
+    int incorrectCount = 3;
+
+    while (1)
+    {
+        int flag = 0;
+        cout << "\nEnter your bank account number = ";
+        cin >> accoutNo;
+        getchar();
+        cout << "Enter the password = ";
+        gets(password);
+
+        /*
+
+        verification orocess
+
+        */
+
+        if (flag == 1)
+        {
+            break;
+        }
+        else
+        {
+            cout << "\nIncorrect username and password." << endl
+                 << "\nYou have only " << --incorrectCount << " chances left." << endl
+                 << "Please retry !!!"<<endl;
+        }
+
+        if (incorrectCount==0)
+        {
+            return;
+        }
+        
+    }
+}
+
+void bank::addAccount()
+{
+}
+
+void customer::intrest()
+{
+}
+
+void customer::loan_calculate()
+{
+}
+
+// Customer class -> customerMenu -> login function's subfunctions
