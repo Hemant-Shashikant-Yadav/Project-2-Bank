@@ -1,58 +1,66 @@
 #include <iostream>
 using namespace std;
 
+//define all veriables in bank class
+//define all function related to account in baml class
+//define request funtion and pending request function in each reaspective class
+
 class bank
 {
-private:
+protected:
     /* data */
-public:
-    bank();
-};
+    // int a;
 
-bank::bank()
-{
-}
+public:
+    // void display()
+    // {
+
+    // }
+};
 
 class manager : public bank
 {
-private:
+protected:
     /* data */
 public:
-    manager(/* args */);
-    
+    // void getData()
+    // {
+    //     cin >> a;
+    //     cout<<"manager"<<a;
+    //     display();
+    // }
 };
-
-manager::manager(/* args */)
-{
-}
 
 class cashier : public manager
 {
-private:
+protected:
     /* data */
 public:
-    cashier(/* args */);
+    // void getData()
+    // {
+    //     cin >> a;
+    //     cout<<"manager"<<a;
+    //     display()
+    // }
 };
-
-cashier::cashier(/* args */)
-{
-}
 
 class customer : public cashier
 {
-private:
+protected:
     /* data */
 public:
-    customer(/* args */);
+    void getData();
+    // {
+    //     cin >> a;
+    //     cout<<"CUSTOMER"<<a;
+    //     display();
+    // }
 };
-
-customer::customer(/* args */)
-{
-}
-
 
 int main()
 {
+    // bank b;
+    // customer c;
 
     return 0;
 }
