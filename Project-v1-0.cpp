@@ -38,7 +38,7 @@ cashier::cashier(/* args */)
 {
 }
 
-class customer
+class customer : public cashier
 {
 private:
     /* data */
