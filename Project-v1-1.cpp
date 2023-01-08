@@ -209,14 +209,43 @@ void customer::customer_login()
         {
             cout << "\nIncorrect username and password." << endl
                  << "\nYou have only " << --incorrectCount << " chances left." << endl
-                 << "Please retry !!!"<<endl;
+                 << "Please retry !!!" << endl;
         }
 
-        if (incorrectCount==0)
+        if (incorrectCount == 0)
         {
             return;
         }
-        
+    }
+
+    while (1)
+    {
+        int opt;
+        cout << "\nYou are logged in succesfully." << endl
+             << "\nSelect a option = " << endl
+             << "1.Deposit money to account." << endl
+             << "2.Withdraw money from account." << endl
+             << "3.Apply for card." << endl
+             << "4.Apply for passbook." << endl
+             << "5.Apply for checkbook." << endl
+             << "6.Apply for loan." << endl
+             << "6.Check you request status." << endl
+             << "7.exit." << endl;
+
+        if (opt == 7)
+        {
+            return;
+        }
+
+        switch (1)
+        {
+        case 1:
+            depositMoney();
+            break; 
+
+        default:
+            break;
+        }
     }
 }
 
