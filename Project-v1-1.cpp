@@ -4,7 +4,19 @@ using namespace std;
 // define all veriables in bank class
 // define all function related to account in baml class
 // define request funtion and pending request function in each reaspective class
-
+/*
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.*/
 class bank
 {
 protected:
