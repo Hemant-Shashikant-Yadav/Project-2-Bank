@@ -32,8 +32,8 @@ public:
     void applyCheckbook();
 
     void loan();
-    void goldLone();
     void homeLone();
+    void goldLone();
     void studentLoan();
     void personalLoan();
 };
@@ -46,8 +46,7 @@ public:
     void managerMenu();
 
     void manager_login();
-
-    void Pending_manager_request();
+    void recived_manager_request();
 };
 
 class cashier : public manager
@@ -58,7 +57,9 @@ public:
     void cashierMenu();
 
     void cashier_login();
+    void addAccountCashier();
     void cashier_request();
+    void recived_cashier_request();
     void Pending_cashier_request();
 };
 
@@ -125,16 +126,71 @@ void bank::bankMenu()
         }
     }
 }
+
 // 1.Manager
 void manager::managerMenu()
 {
-    cout << "Hello Manager" << endl;
+    int opt;
+    while (1)
+    {
+        manager M;
+        cout << "\nHello manager." << endl
+             << "Options = " << endl
+             << "1.Log in to acount." << endl
+             << "2.Exit. " << endl
+             << "Choose option = ";
+
+        cin >> opt;
+        if (opt == 2)
+        {
+            break;
+        }
+        switch (opt)
+        {
+        case 1:
+            M.manager_login();
+            break;
+
+        default:
+            break;
+        }
+    }
 }
 
 // 2.Cashier
 void cashier::cashierMenu()
 {
-    cout << "Hello cashier" << endl;
+
+    int opt;
+    while (1)
+    {
+        cashier C;
+        cout << "\nHello cashier." << endl
+             << "Options = " << endl
+             << "1.Log in to acount." << endl
+             << "2.Create new cashier account." << endl
+             << "3.Exit. " << endl
+             << "Choose option = ";
+
+        cin >> opt;
+        if (opt == 3)
+        {
+            break;
+        }
+        switch (opt)
+        {
+        case 1:
+            C.cashier_login();
+            break;
+
+        case 2:
+            C.addAccountCashier();
+            break;
+
+        default:
+            break;
+        }
+    }
 }
 
 // 3.Customer
@@ -181,6 +237,209 @@ void customer::customerMenu()
     }
 }
 
+/*
+
+All manager relater operations
+
+*/
+// manager class -> managerMenu function's subfunctions
+void manager::manager_login()
+{
+    double accoutNo;
+    char password[50];
+    int incorrectCount = 3;
+
+    while (1)
+    {
+        int flag = 0;
+        cout << "\nEnter your bank id number = ";
+        cin >> accoutNo;
+        getchar();
+        cout << "Enter the password = ";
+        gets(password);
+
+        /*
+            check account status (active / inactive)
+
+        */
+        /*
+
+        verification orocess
+
+        */
+
+        if (flag == 1)
+        {
+            break;
+        }
+        else
+        {
+            cout << "\nIncorrect username and password." << endl
+                 << "\nYou have only " << --incorrectCount << " chances left." << endl
+                 << "Please retry !!!" << endl;
+        }
+
+        if (incorrectCount == 0)
+        {
+            return;
+        }
+    }
+
+    while (1)
+    {
+        int opt;
+        cout << "\nYou are logged in succesfully." << endl
+             << "\nSelect a option = " << endl
+             << "1.Check recived requests." << endl
+             << "2.exit." << endl;
+
+        cin >> opt;
+
+        manager M;
+        if (opt == 2)
+        {
+            return;
+        }
+
+        switch (opt)
+        {
+        case 1:
+            M.recived_manager_request();
+            break;
+
+        default:
+            break;
+        }
+    }
+}
+// manager class -> managerMenu -> login function's subfunctions
+void manager::recived_manager_request()
+{
+}
+
+/*
+
+All cashier relater operations
+
+*/
+// cashier class -> cashierMenu function's subfunctions
+void cashier::cashier_login()
+{
+    double accoutNo;
+    char password[50];
+    int incorrectCount = 3;
+
+    while (1)
+    {
+        int flag = 0;
+        cout << "\nEnter your bank id number = ";
+        cin >> accoutNo;
+        getchar();
+        cout << "Enter the password = ";
+        gets(password);
+
+        /*
+            check account status (active / inactive)
+
+        */
+        /*
+
+        verification orocess
+
+        */
+
+        if (flag == 1)
+        {
+            break;
+        }
+        else
+        {
+            cout << "\nIncorrect username and password." << endl
+                 << "\nYou have only " << --incorrectCount << " chances left." << endl
+                 << "Please retry !!!" << endl;
+        }
+
+        if (incorrectCount == 0)
+        {
+            return;
+        }
+    }
+
+    while (1)
+    {
+        int opt;
+        cout << "\nYou are logged in succesfully." << endl
+             << "\nSelect a option = " << endl
+             << "1.Check recived requests." << endl
+             << "2.Pending requests." << endl
+             << "3.exit." << endl;
+
+        cin >> opt;
+
+        cashier C;
+        if (opt == 3)
+        {
+            return;
+        }
+
+        switch (opt)
+        {
+        case 1:
+            C.recived_cashier_request();
+            break;
+        case 2:
+            C.Pending_cashier_request();
+            break;
+
+        default:
+            break;
+        }
+    }
+}
+
+void cashier::addAccountCashier()
+{
+    char name[50];
+    char password[20];
+    int tempIdNo;
+
+    cout << "Enter the name = ";
+    gets(name);
+
+    cout << "Set password (case sencesitive)= ";
+    gets(password);
+
+    srand(time(nullptr));
+    tempIdNo = rand() % 100000;
+
+    cout << "Your temporary id no is = " << tempIdNo;
+
+    /*
+    set account status as inactive
+    */
+    /*
+    code for storing the request
+
+    */
+
+    cout << "Your account opening request is sent to the bank manager." << endl
+         << "After approval your accout will be opened." << endl
+         << "Check for pending request.";
+}
+
+// Cashier class -> CashierMenu -> login function's subfunctions
+void cashier::recived_cashier_request()
+{
+}
+void cashier::Pending_cashier_request()
+{
+}
+
+/*
+
+All customer relater operations
+
+*/
 // Customer class -> customerMenu function's subfunctions
 void customer::customer_login()
 {
@@ -231,22 +490,52 @@ void customer::customer_login()
              << "\nSelect a option = " << endl
              << "1.Deposit money to account." << endl
              << "2.Withdraw money from account." << endl
-             << "3.Apply for card." << endl
-             << "4.Apply for passbook." << endl
-             << "5.Apply for checkbook." << endl
-             << "6.Apply for loan." << endl
-             << "6.Check you request status." << endl
-             << "7.exit." << endl;
+             << "3.Card." << endl
+             << "4.Open Fixed deposite" << endl
+             << "5.Apply for passbook." << endl
+             << "6.Apply for checkbook." << endl
+             << "7.Apply for loan." << endl
+             << "8.Remaove account." << endl
+             << "9.Check you request status." << endl
+             << "10.exit." << endl;
 
-        if (opt == 7)
+        cin >> opt;
+
+        bank B;
+        customer C;
+        if (opt == 10)
         {
             return;
         }
 
-        switch (1)
+        switch (opt)
         {
         case 1:
-            depositMoney();
+            B.depositMoney();
+            break;
+        case 2:
+            B.withdrawMoney();
+            break;
+        case 3:
+            B.card();
+            break;
+        case 4:
+            B.fixedDiposit();
+            break;
+        case 5:
+            B.applyPassbook();
+            break;
+        case 6:
+            B.applyCheckbook();
+            break;
+        case 7:
+            B.loan();
+            break;
+        case 8:
+            B.removeAccount();
+            break;
+        case 9:
+            C.Pending_customer_request();
             break;
 
         default:
@@ -322,7 +611,7 @@ float calculateLoanEMI(float rate)
 void customer::loan_calculate()
 {
     int opt;
-    int EMI;
+    float EMI;
 
     cout << "Select which lone you want to buy = " << endl
          << "Menu" << endl
@@ -345,14 +634,26 @@ void customer::loan_calculate()
     case 1:
         // Home loan
         EMI = calculateLoanEMI(8.75);
-        break;
+        cout << "The EMI for home loan for 8.75% intrest is = " << EMI << endl;
+
     case 2:
+        // Gold loan
+        EMI = calculateLoanEMI(7.30);
+        cout << "The EMI for home loan for 7.30% intrest is = " << EMI << endl;
+        break;
         break;
 
     case 3:
+        // Student loan
+        EMI = calculateLoanEMI(10.05);
+        cout << "The EMI for home loan for 10.05% intrest is = " << EMI << endl;
         break;
 
     case 4:
+        // Personal loan
+        EMI = calculateLoanEMI(9.60);
+        cout << "The EMI for home loan for 9.60% intrest is = " << EMI << endl;
+        break;
         break;
 
     default:
@@ -361,3 +662,115 @@ void customer::loan_calculate()
 }
 
 // Customer class -> customerMenu -> login function's subfunctions
+void bank::depositMoney()
+{
+}
+void bank::withdrawMoney()
+{
+}
+void bank::card()
+{
+    int opt;
+    cout << "\nSelect a option = " << endl
+         << "1.Apply card." << endl
+         << "2.Close card." << endl
+         << "3.exit." << endl;
+
+    cin >> opt;
+    customer C;
+    if (opt == 3)
+    {
+        return;
+    }
+
+    switch (opt)
+    {
+    case 1:
+        C.applyCard();
+        break;
+    case 2:
+        C.closeCard();
+        break;
+
+    default:
+        break;
+    }
+}
+void bank::fixedDiposit()
+{
+}
+void bank::applyPassbook()
+{
+}
+void bank::applyCheckbook()
+{
+}
+void bank::loan()
+{
+    int opt;
+    cout << "\nSelect a option = " << endl
+         << "1.Home loan." << endl
+         << "2.Gold loan." << endl
+         << "3.Student loan." << endl
+         << "4.Personal loan." << endl
+         << "5.exit." << endl;
+
+    cin >> opt;
+    customer C;
+    if (opt == 5)
+    {
+        return;
+    }
+
+    switch (opt)
+    {
+    case 1:
+        C.homeLone();
+        break;
+    case 2:
+        C.goldLone();
+        break;
+    case 3:
+        C.studentLoan();
+        break;
+    case 4:
+        C.personalLoan();
+        break;
+
+    default:
+        break;
+    }
+}
+void bank::removeAccount()
+{
+}
+void customer::Pending_customer_request()
+{
+}
+
+// Customer class -> customerMenu -> login function -> card function's subfunctions
+void bank::applyCard()
+{
+}
+void bank::closeCard()
+{
+}
+
+// Customer class -> customerMenu -> login function -> loan function's subfunctions
+void bank::homeLone()
+{
+}
+void bank::goldLone()
+{
+}
+void bank::studentLoan()
+{
+}
+void bank::personalLoan()
+{
+}
+
+// Customer request which will be sent to either cashier or manager
+void customer::customer_request()
+{
+}
