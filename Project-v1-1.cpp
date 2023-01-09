@@ -4,24 +4,9 @@ using namespace std;
 // define all veriables in bank class
 // define all function related to account in baml class
 // define request funtion and pending request function in each reaspective class
-<<<<<<< HEAD
+
 int balance;
 
-=======
-/*
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.*/
->>>>>>> 4d22860bf5b9d076d3c16d23b4a91091c59b9688
 class bank
 {
 protected:
@@ -320,13 +305,24 @@ void customer::intrest()
     cout << "The total amount after intrest will be = " << ammountF;
 }
 
+float calculateLoanEMI(float rate)
+{
+    float PAmt, NoOfMonths, MonthlyIntrest, EMIAmt;
+
+    cout << "Enter principal amount = ";
+    cin >> PAmt;
+    cout << "Enter no of months = ";
+    cin >> NoOfMonths;
+    cout << "For home loan intrest rate per year is " << rate << "%";
+
+    MonthlyIntrest = rate / 12 / 100;
+    EMIAmt = PAmt * MonthlyIntrest * (1 + MonthlyIntrest) * NoOfMonths / ((1 + MonthlyIntrest) * NoOfMonths - 1);
+    return EMIAmt;
+}
 void customer::loan_calculate()
 {
     int opt;
-    void homeLoan();
-    void goldLoan();
-    void studentLoan();
-    void personalLoan();
+    int EMI;
 
     cout << "Select which lone you want to buy = " << endl
          << "Menu" << endl
@@ -347,18 +343,16 @@ void customer::loan_calculate()
     switch (opt)
     {
     case 1:
-        homeLoan();
+        // Home loan
+        EMI = calculateLoanEMI(8.75);
         break;
     case 2:
-        goldLoan();
         break;
 
     case 3:
-        studentLoan();
         break;
 
     case 4:
-        personalLoan();
         break;
 
     default:
