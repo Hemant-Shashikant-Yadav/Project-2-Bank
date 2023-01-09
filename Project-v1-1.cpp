@@ -4,8 +4,24 @@ using namespace std;
 // define all veriables in bank class
 // define all function related to account in baml class
 // define request funtion and pending request function in each reaspective class
+<<<<<<< HEAD
 int balance;
 
+=======
+/*
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.*/
+>>>>>>> 4d22860bf5b9d076d3c16d23b4a91091c59b9688
 class bank
 {
 protected:
