@@ -1,9 +1,10 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 // define all veriables in bank class
 // define all function related to account in baml class
 // define request funtion and pending request function in each reaspective class
+int balance;
 
 class bank
 {
@@ -196,6 +197,10 @@ void customer::customer_login()
         gets(password);
 
         /*
+            check account status (active / inactive)
+
+        */
+        /*
 
         verification orocess
 
@@ -241,7 +246,7 @@ void customer::customer_login()
         {
         case 1:
             depositMoney();
-            break; 
+            break;
 
         default:
             break;
@@ -251,14 +256,98 @@ void customer::customer_login()
 
 void bank::addAccount()
 {
+    char name[50];
+    char password[20];
+    int tempAccNo;
+
+    cout << "Enter the name = ";
+    gets(name);
+
+    cout << "Set password (case sencesitive)= ";
+    gets(password);
+
+    srand(time(nullptr));
+    tempAccNo = rand() % 100000;
+
+    cout << "Your temporary account no is = " << tempAccNo;
+
+    /*
+    set account status as inactive
+    */
+    /*
+    code for storing the request
+
+    */
+
+    cout << "Your account opening request is sent to the bank cashier." << endl
+         << "After approval your accout will be opened." << endl
+         << "Check for pending request.";
 }
 
 void customer::intrest()
 {
+    int ammountP;
+    int time;
+    int rate;
+    int ammountF;
+    cout << "Welcome to simple intrest calculator = " << endl
+         << "Enter principal ammount = ";
+    cin >> ammountP;
+    cout << "Enter rate of intrest = ";
+    cin >> rate;
+    cout << "Enter time in years = ";
+    cin >> time;
+
+    ammountF = ammountP * (1 + rate * time);
+
+    cout << "The intrest over inputed ammount will be = " << (ammountP * (rate * time)) << endl;
+    cout << "The total amount after intrest will be = " << ammountF;
 }
 
 void customer::loan_calculate()
 {
+    int opt;
+    void homeLoan();
+    void goldLoan();
+    void studentLoan();
+    void personalLoan();
+
+    cout << "Select which lone you want to buy = " << endl
+         << "Menu" << endl
+         << "1.Home loan " << endl
+         << "2.Gold loan " << endl
+         << "3.Student loan " << endl
+         << "4.Personal loan " << endl
+         << "5.Exit " << endl
+         << "choose = ";
+
+    cin >> opt;
+
+    if (opt == 5)
+    {
+        return;
+    }
+
+    switch (opt)
+    {
+    case 1:
+        homeLoan();
+        break;
+    case 2:
+        goldLoan();
+        break;
+
+    case 3:
+        studentLoan();
+        break;
+
+    case 4:
+        personalLoan();
+        break;
+
+    default:
+        break;
+    }
 }
 
 // Customer class -> customerMenu -> login function's subfunctions
