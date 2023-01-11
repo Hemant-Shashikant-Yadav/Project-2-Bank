@@ -774,3 +774,7 @@ void bank::personalLoan()
 void customer::customer_request()
 {
 }
+// cashier request which will be sent to  manager
+void cashier::cashier_request()
+{
+}
