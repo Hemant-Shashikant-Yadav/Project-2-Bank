@@ -7,6 +7,9 @@ using namespace std;
 
 int balance;
 
+void create_account(int no, string name1, int user);
+void account_activation_request(int no, string name, int user);
+
 class bank
 {
 protected:
@@ -173,6 +176,8 @@ void cashier::cashierMenu()
              << "Choose option = ";
 
         cin >> opt;
+        getchar();
+
         if (opt == 3)
         {
             break;
@@ -210,6 +215,8 @@ void customer::customerMenu()
              << "Choose option = ";
 
         cin >> opt;
+        getchar();
+
         if (opt == 5)
         {
             break;
@@ -304,7 +311,7 @@ void manager::manager_login()
         switch (opt)
         {
         case 1:
-            M.recived_manager_request();
+            M.recived_manager_request(); // open
             break;
 
         default:
@@ -399,20 +406,7 @@ void cashier::cashier_login()
 
 void cashier::addAccountCashier()
 {
-    char name[50];
-    char password[20];
-    int tempIdNo;
-
-    cout << "Enter the name = ";
-    gets(name);
-
-    cout << "Set password (case sencesitive)= ";
-    gets(password);
-
-    srand(time(nullptr));
-    tempIdNo = rand() % 100000;
-
-    cout << "Your temporary id no is = " << tempIdNo;
+    create_account(100, "id", 2);
 
     /*
     set account status as inactive
@@ -424,7 +418,7 @@ void cashier::addAccountCashier()
 
     cout << "Your account opening request is sent to the bank manager." << endl
          << "After approval your accout will be opened." << endl
-         << "Check for pending request.";
+         << "Check for pending request.\n\n";
 }
 
 // Cashier class -> CashierMenu -> login function's subfunctions
@@ -546,24 +540,8 @@ void customer::customer_login()
 
 void bank::addAccount()
 {
-    char name[50];
-    char password[20];
-    int tempAccNo;
+    create_account(1000000, "account", 1);
 
-    cout << "Enter the name = ";
-    gets(name);
-
-    cout << "Set password (case sencesitive)= ";
-    gets(password);
-
-    srand(time(nullptr));
-    tempAccNo = rand() % 100000;
-
-    cout << "Your temporary account no is = " << tempAccNo;
-
-    /*
-    set account status as inactive
-    */
     /*
     code for storing the request
 
@@ -571,7 +549,7 @@ void bank::addAccount()
 
     cout << "Your account opening request is sent to the bank cashier." << endl
          << "After approval your accout will be opened." << endl
-         << "Check for pending request.";
+         << "Check for pending request.\n\n";
 }
 
 void customer::intrest()
@@ -608,6 +586,7 @@ float calculateLoanEMI(float rate)
     EMIAmt = PAmt * MonthlyIntrest * (1 + MonthlyIntrest) * NoOfMonths / ((1 + MonthlyIntrest) * NoOfMonths - 1);
     return EMIAmt;
 }
+
 void customer::loan_calculate()
 {
     int opt;
@@ -777,4 +756,117 @@ void customer::customer_request()
 // cashier request which will be sent to  manager
 void cashier::cashier_request()
 {
+}
+
+// create account function = This will be used by adding account of customer and cashier
+void create_account(int no, string name1, int user)
+{
+    fstream fileptr;
+    char name[50];
+    char password[20];
+    int tempAccno = no;
+    string str;
+
+    cout << "Enter the name = ";
+    gets(name);
+
+    cout << "Set password (case sencesitive)= ";
+    gets(password);
+
+    switch (user)
+    {
+    case 1:
+        fileptr.open("customer_account.txt", ios::in);
+        while (getline(fileptr, str))
+        {
+            tempAccno++;
+        }
+        fileptr.close();
+
+        cout << "Your temporary " << name1 << " no is = " << tempAccno;
+
+        fileptr.open("customer_account.txt", ios::app);
+        fileptr << tempAccno;
+        fileptr << " = " << name << endl;
+        fileptr.close();
+
+        cout << endl;
+
+        fileptr.open("customer_account_status.txt", ios::app);
+        fileptr << tempAccno << " = Inactive" << endl;
+
+        fileptr.close();
+
+        account_activation_request(tempAccno, name, 1);
+
+        break;
+
+    case 2:
+        fileptr.open("cashier_account.txt", ios::in);
+        while (getline(fileptr, str))
+        {
+            tempAccno++;
+        }
+        fileptr.close();
+
+        cout << "Your temporary " << name1 << " no is = " << tempAccno;
+
+        fileptr.open("cashier_account.txt", ios::app);
+        fileptr << tempAccno;
+        fileptr << " = " << name << endl;
+        fileptr.close();
+
+        cout << endl;
+
+        fileptr.open("cashier_account_status.txt", ios::app);
+        fileptr << tempAccno << " = Inactive" << endl;
+        fileptr.close();
+
+        account_activation_request(tempAccno, name, 2);
+
+        break;
+    }
+}
+
+// account_activation_request function = This will be used to send request to cashier ir manager.
+void account_activation_request(int no, string name, int user)
+{
+    string str;
+    int count;
+
+    fstream fileptr;
+    switch (user)
+    {
+    case 1:
+        count = 1;
+
+        fileptr.open("requesr_cashier.txt", ios::in);
+        while (getline(fileptr, str))
+        {
+            count++;
+        }
+        fileptr.close();
+
+        fileptr.open("requesr_cashier.txt", ios::app);
+        fileptr << count << ". " << name << " created an account, account no. = " << no << ". Please approve." << endl;
+        fileptr.close();
+        cout << endl;
+
+        break;
+    case 2:
+        count = 1;
+
+        fileptr.open("request_manager.txt", ios::in);
+        while (getline(fileptr, str))
+        {
+            count++;
+        }
+        fileptr.close();
+
+        fileptr.open("request_manager.txt", ios::app);
+        fileptr << count << ". " << name << " created an id, id no. = " << no << ". Please approve." << endl;
+        fileptr.close();
+        cout << endl;
+        break;
+    }
 }
