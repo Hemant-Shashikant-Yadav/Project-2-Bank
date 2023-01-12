@@ -188,19 +188,38 @@ int main()
     // while (1)
     // {
     /* code */
-    while (!fileptr.eof())
-    {
-        getline(fileptr, str);
-        cout << str << endl;
-    }
+    // while (!fileptr.eof())
+    // {
+    //     getline(fileptr, str);
+    //     cout << str << endl;
+    // }
 
-    if (str=="o")
+    // if (str=="o")
+    // {
+    //     cout << "No pending requests.";
+
+    // }
+
+    // }
+    fileptr.seekp(0, ios::end);
+    int pos = fileptr.tellp();
+    // cout << pos;
+    fileptr.seekp(0, ios::beg);
+
+    if (pos == 0)
     {
         cout << "No pending requests.";
-
     }
-   
-    // }
+    else
+    {
+        /* code */
+        while (!fileptr.eof())
+        {
+            getline(fileptr, str);
+            cout << str << endl;
+        }
+    }
+
     fileptr.close();
     return 0;
 }

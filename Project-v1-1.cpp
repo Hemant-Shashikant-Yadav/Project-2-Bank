@@ -428,6 +428,27 @@ void cashier::recived_cashier_request()
 }
 void cashier::Pending_cashier_request()
 {
+    fileptr.open("pending_request_cashier.txt", ios::in);
+    string str;
+
+    fileptr.seekp(0, ios::end);
+    int pos = fileptr.tellp();
+    fileptr.seekp(0, ios::beg);
+
+    if (pos == 0)
+    {
+        cout << "No pending requests.";
+    }
+    else
+    {
+        while (!fileptr.eof())
+        {
+            getline(fileptr, str);
+            cout << str << endl;
+        }
+    }
+
+    fileptr.close();
 }
 
 /*
@@ -729,11 +750,21 @@ void customer::Pending_customer_request()
     fileptr.open("pending_request_customer.txt", ios::in);
     string str;
 
+    fileptr.seekp(0, ios::end);
+    int pos = fileptr.tellp();
+    fileptr.seekp(0, ios::beg);
 
-    while (!fileptr.eof())
+    if (pos == 0)
     {
-        getline(fileptr, str);
-        cout << str << endl;
+        cout << "No pending requests.";
+    }
+    else
+    {
+        while (!fileptr.eof())
+        {
+            getline(fileptr, str);
+            cout << str << endl;
+        }
     }
 
     fileptr.close();
@@ -871,7 +902,7 @@ void account_activation_request(int no, string name, int user)
         fileptr.close();
 
         fileptr.open("pending_request_customer.txt", ios::app);
-        fileptr << count << ". " << name << " , account no. = " << no << ". The request of opening an account is sent to cashier. They will approve the request shotly.\nPlease wait." << endl;
+        fileptr << count << ". " << name << " , account no. = " << no << ". The request of opening an account is sent to cashier. They will approve the request shotly.Please wait." << endl;
         fileptr.close();
         cout << endl;
 
@@ -898,7 +929,7 @@ void account_activation_request(int no, string name, int user)
         fileptr.close();
 
         fileptr.open("pending_request_cashier.txt", ios::app);
-        fileptr << count << ". " << name << " , id no. = " << no << ". The request of opening an id is sent to manager. They will approve the request shotly.\nPlease wait." << endl;
+        fileptr << count << ". " << name << " , id no. = " << no << ". The request of opening an id is sent to manager. They will approve the request shotly.Please wait." << endl;
         fileptr.close();
 
         cout << endl;
