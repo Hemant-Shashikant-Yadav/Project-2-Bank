@@ -5,6 +5,7 @@ using namespace std;
 // define all function related to account in baml class
 // define request funtion and pending request function in each reaspective class
 
+fstream fileptr;
 int balance;
 
 void create_account(int no, string name1, int user);
@@ -725,6 +726,17 @@ void bank::removeAccount()
 }
 void customer::Pending_customer_request()
 {
+    fileptr.open("pending_request_customer.txt", ios::in);
+    string str;
+
+
+    while (!fileptr.eof())
+    {
+        getline(fileptr, str);
+        cout << str << endl;
+    }
+
+    fileptr.close();
 }
 
 // Customer class -> customerMenu -> login function -> card function's subfunctions
@@ -761,7 +773,6 @@ void cashier::cashier_request()
 // create account function = This will be used by adding account of customer and cashier
 void create_account(int no, string name1, int user)
 {
-    fstream fileptr;
     char name[50];
     char password[20];
     int tempAccno = no;
@@ -834,7 +845,6 @@ void account_activation_request(int no, string name, int user)
     string str;
     int count;
 
-    fstream fileptr;
     switch (user)
     {
     case 1:
@@ -849,6 +859,19 @@ void account_activation_request(int no, string name, int user)
 
         fileptr.open("requesr_cashier.txt", ios::app);
         fileptr << count << ". " << name << " created an account, account no. = " << no << ". Please approve." << endl;
+        fileptr.close();
+
+        count = 1;
+
+        fileptr.open("pending_request_customer.txt", ios::in);
+        while (getline(fileptr, str))
+        {
+            count++;
+        }
+        fileptr.close();
+
+        fileptr.open("pending_request_customer.txt", ios::app);
+        fileptr << count << ". " << name << " , account no. = " << no << ". The request of opening an account is sent to cashier. They will approve the request shotly.\nPlease wait." << endl;
         fileptr.close();
         cout << endl;
 
@@ -866,6 +889,18 @@ void account_activation_request(int no, string name, int user)
         fileptr.open("request_manager.txt", ios::app);
         fileptr << count << ". " << name << " created an id, id no. = " << no << ". Please approve." << endl;
         fileptr.close();
+
+        fileptr.open("pending_request_cashier.txt", ios::in);
+        while (getline(fileptr, str))
+        {
+            count++;
+        }
+        fileptr.close();
+
+        fileptr.open("pending_request_cashier.txt", ios::app);
+        fileptr << count << ". " << name << " , id no. = " << no << ". The request of opening an id is sent to manager. They will approve the request shotly.\nPlease wait." << endl;
+        fileptr.close();
+
         cout << endl;
         break;
     }
