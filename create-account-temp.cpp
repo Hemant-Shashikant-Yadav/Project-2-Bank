@@ -1,5 +1,5 @@
-#include <iostream>
-#include <fstream>
+#include <bits/stdc++.h>
+#include <string>
 using namespace std;
 fstream fileptr;
 
@@ -177,8 +177,8 @@ int main()
     // create_account(1000000, "account", 1);
     // create_account(100, "id", 2);
 
-    fileptr.open("pending_request_customer.txt", ios::in);
-    string str;
+    // fileptr.open("pending_request_customer.txt", ios::in);
+    // string str;
 
     // if (fileptr.eof())
     // {
@@ -201,25 +201,117 @@ int main()
     // }
 
     // }
-    fileptr.seekp(0, ios::end);
-    int pos = fileptr.tellp();
-    // cout << pos;
-    fileptr.seekp(0, ios::beg);
+    // fileptr.seekp(0, ios::end);
+    // int pos = fileptr.tellp();
+    // // cout << pos;
+    // fileptr.seekp(0, ios::beg);
 
-    if (pos == 0)
+    // if (pos == 0)
+    // {
+    //     cout << "No pending requests.";
+    // }
+    // else
+    // {
+    //     /* code */
+    //     while (!fileptr.eof())
+    //     {
+    //         getline(fileptr, str);
+    //         cout << str << endl;
+    //     }
+    // }
+
+    // fileptr.close();
+    double accoutNo;
+    char pass[20];
+    int num;
+    string str;
+    fileptr.open("customer_account_status.txt", ios::in);
+
+    cin >> accoutNo;
+    cin >> pass;
+
+    // fileptr >> num;
+
+    // cout << num << endl;
+    // // cout << sizeof(num);
+
+    // fileptr.seekg(18, ios::beg );
+
+    // fileptr >> num;
+
+    // cout << num << endl;
+    // // fileptr.seekg(10, ios::cur );
+    // // fileptr.seekg(38, ios::beg );
+    // fileptr.seekg(10, ios::cur );
+    // fileptr.
+
+    // fileptr >> num;
+
+    // cout << num << endl;
+    // // cout << sizeof(num);
+    int flag = 0;
+    int count = 1, i = 1;
+    char str1[20];
+    // while (!fileptr.eof())
+    // {
+    //     fileptr >> num;
+    //     cout << num << endl;
+    //     getline(fileptr, str);
+    //     if (str == " =   active")
+    //     {
+    //         flag = 1;
+    //         break;
+    //     }
+    //     /* code */
+    // }
+
+    // fileptr.close();
+    // if (flag == 1)
+    // {
+    //     cout << "Login successful";
+    // }
+    // else
+    // {
+    //     cout << "Account is incative";
+    // }
+
+    while (!fileptr.eof())
     {
-        cout << "No pending requests.";
-    }
-    else
-    {
-        /* code */
-        while (!fileptr.eof())
+        fileptr >> num;
+        cout << num << endl;
+        getline(fileptr, str);
+
+        if (num == accoutNo)
         {
-            getline(fileptr, str);
-            cout << str << endl;
+            fileptr.close();
+            cout << "Account found" << endl;
+            fileptr.open("customer_pass.txt", ios::in);
+
+            while (i <= count)
+            {
+                fileptr>>str1;
+                i++;
+            }
+            fileptr.close();
+            if (!strcmp(pass,str1))
+            {
+                cout << "correct passsword";
+                flag = 1;
+                break;
+            }
+            break;
         }
+        count++;
     }
 
-    fileptr.close();
+if(flag==1)
+{
+    cout<<"login successful";
+}
+else
+{
+    cout<<"Error";
+}
+
     return 0;
 }

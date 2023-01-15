@@ -5,8 +5,6 @@ using namespace std;
 // define all function related to account in baml class
 // define request funtion and pending request function in each reaspective class
 
-void create_account(int no, string name1, int user);
-void account_activation_request(int no, string name, int user);
 fstream fileptr;
 int balance;
 
@@ -61,7 +59,7 @@ public:
 
     void cashier_login();
     void addAccountCashier();
-    void cashier_request();
+    void cashier_request(int no, string name);
     void recived_cashier_request();
     void Pending_cashier_request();
 };
@@ -77,7 +75,7 @@ public:
     void intrest();
     void loan_calculate();
 
-    void customer_request();
+    void customer_request(int no, string name, int user, int opt, string loanName);
     void Pending_customer_request();
 };
 
@@ -406,11 +404,40 @@ void cashier::cashier_login()
 
 void cashier::addAccountCashier()
 {
-    create_account(100, "id", 2);
+    // create_account(100, "id", 2);
+    char name[50];
+    char password[20];
+    int tempAccno = 100;
+    string str;
 
-    /*
-    set account status as inactive
-    */
+    cout << "Enter the name = ";
+    gets(name);
+
+    cout << "Set password (case sencesitive)= ";
+    gets(password);
+
+    fileptr.open("cashier_account.txt", ios::in);
+    while (getline(fileptr, str))
+    {
+        tempAccno++;
+    }
+    fileptr.close();
+
+    cout << "Your temporary id no is = " << tempAccno;
+
+    fileptr.open("cashier_account.txt", ios::app);
+    fileptr << tempAccno;
+    fileptr << " = " << name << " , Password = " << password << endl;
+    fileptr.close();
+
+    cout << endl;
+
+    fileptr.open("cashier_account_status.txt", ios::app);
+    fileptr << tempAccno << " = Inactive" << endl;
+    fileptr.close();
+
+    cashier_request(tempAccno, name);
+
     /*
     code for storing the request
 
@@ -458,9 +485,11 @@ All customer relater operations
 // Customer class -> customerMenu function's subfunctions
 void customer::customer_login()
 {
-    double accoutNo;
-    char password[50];
+    double accoutNo, num;
+    char password[50], str1[50];
+    int i = 1, count = 1;
     int incorrectCount = 3;
+    string str;
 
     while (1)
     {
@@ -471,15 +500,42 @@ void customer::customer_login()
         cout << "Enter the password = ";
         gets(password);
 
-        /*
-            check account status (active / inactive)
+        fileptr.open("customer_account_status.txt", ios::in);
+        while (!fileptr.eof())
+        {
+            fileptr >> num;
+            getline(fileptr, str);
 
-        */
-        /*
+            if (str == " =   active")
+            {
+                if (num == accoutNo)
+                {
+                    fileptr.close();
+                    fileptr.open("customer_pass.txt", ios::in);
 
-        verification orocess
+                    while (i <= count)
+                    {
+                        fileptr >> str1;
+                        i++;
+                    }
+                    fileptr.close();
+                    if (!strcmp(password, str1))
+                    {
+                        flag = 1;
+                        break;
+                    }
+                    break;
+                }
+            }
+            else
+            {
+                cout<<"Your account is still not activited. Pleae wait, your account will be activited shortly.";
+                return;
+            }
+            
 
-        */
+            count++;
+        }
 
         if (flag == 1)
         {
@@ -561,7 +617,45 @@ void customer::customer_login()
 
 void bank::addAccount()
 {
-    create_account(1000000, "account", 1);
+    // create_account(1000000, "account", 1);
+    char name[50];
+    char password[20];
+    int tempAccno = 1000000;
+    string str;
+
+    cout << "Enter the name = ";
+    gets(name);
+
+    cout << "Set password (case sencesitive)= ";
+    gets(password);
+
+    fileptr.open("customer_account.txt", ios::in);
+    while (getline(fileptr, str))
+    {
+        tempAccno++;
+    }
+    fileptr.close();
+
+    cout << "Your temporary account no is = " << tempAccno;
+
+    fileptr.open("customer_account.txt", ios::app);
+    fileptr << tempAccno;
+    fileptr << " = " << name << " , Password = " << password << endl;
+    fileptr.close();
+
+    fileptr.open("customer_pass.txt", ios::app);
+    fileptr << password << endl;
+    fileptr.close();
+
+    cout << endl;
+
+    fileptr.open("customer_account_status.txt", ios::app);
+    fileptr << tempAccno << " = Inactive" << endl;
+
+    fileptr.close();
+
+    customer c;
+    c.customer_request(tempAccno, name, 1, 0, "null");
 
     /*
     code for storing the request
@@ -575,36 +669,42 @@ void bank::addAccount()
 
 void customer::intrest()
 {
-    int ammountP;
-    int time;
-    int rate;
-    int ammountF;
+    float ammountP;
+    float time;
+    float rate;
+    float ammountF;
     cout << "Welcome to simple intrest calculator = " << endl
          << "Enter principal ammount = ";
     cin >> ammountP;
-    cout << "Enter rate of intrest = ";
+    cout << "Enter anual rate of intrest = ";
     cin >> rate;
+    rate /= 100;
     cout << "Enter time in years = ";
     cin >> time;
 
-    ammountF = ammountP * (1 + rate * time);
+    ammountF = ammountP * (1 + (rate * time));
 
-    cout << "The intrest over inputed ammount will be = " << (ammountP * (rate * time)) << endl;
+    cout << "The intrest over inputed ammount will be = " << (ammountP * rate * time) << endl;
     cout << "The total amount after intrest will be = " << ammountF;
 }
 
 float calculateLoanEMI(float rate)
 {
-    float PAmt, NoOfMonths, MonthlyIntrest, EMIAmt;
+    float PAmt, NoOfyears, MonthlyIntrest, EMIAmt;
 
     cout << "Enter principal amount = ";
     cin >> PAmt;
-    cout << "Enter no of months = ";
-    cin >> NoOfMonths;
+    cout << "Enter no of years = ";
+    cin >> NoOfyears;
+    NoOfyears *= 12;
+
     cout << "For home loan intrest rate per year is " << rate << "%";
 
-    MonthlyIntrest = rate / 12 / 100;
-    EMIAmt = PAmt * MonthlyIntrest * (1 + MonthlyIntrest) * NoOfMonths / ((1 + MonthlyIntrest) * NoOfMonths - 1);
+    MonthlyIntrest = rate / 1200;
+    EMIAmt = (PAmt * MonthlyIntrest * pow(1 + MonthlyIntrest, NoOfyears)) / (pow(1 + MonthlyIntrest, NoOfyears) - 1);
+    cout << "The intrest over inputed ammount will be = " << (PAmt * (MonthlyIntrest * 12) * (NoOfyears / 12)) << endl;
+    cout << "The ammount payable will be = " << PAmt * (1 + ((MonthlyIntrest * 12) * (NoOfyears / 12))) << endl;
+
     return EMIAmt;
 }
 
@@ -635,6 +735,7 @@ void customer::loan_calculate()
         // Home loan
         EMI = calculateLoanEMI(8.75);
         cout << "The EMI for home loan for 8.75% intrest is = " << EMI << endl;
+        break;
 
     case 2:
         // Gold loan
@@ -653,7 +754,6 @@ void customer::loan_calculate()
         // Personal loan
         EMI = calculateLoanEMI(9.60);
         cout << "The EMI for home loan for 9.60% intrest is = " << EMI << endl;
-        break;
         break;
 
     default:
@@ -792,86 +892,13 @@ void bank::personalLoan()
 }
 
 // Customer request which will be sent to either cashier or manager
-void customer::customer_request()
+void customer::customer_request(int no, string name, int user, int opt, string loanName)
 {
-}
-// cashier request which will be sent to  manager
-void cashier::cashier_request()
-{
-}
-
-// create account function = This will be used by adding account of customer and cashier
-void create_account(int no, string name1, int user)
-{
-    char name[50];
-    char password[20];
-    int tempAccno = no;
-    string str;
-
-    cout << "Enter the name = ";
-    gets(name);
-
-    cout << "Set password (case sencesitive)= ";
-    gets(password);
-
-    switch (user)
-    {
-    case 1:
-        fileptr.open("customer_account.txt", ios::in);
-        while (getline(fileptr, str))
-        {
-            tempAccno++;
-        }
-        fileptr.close();
-
-        cout << "Your temporary " << name1 << " no is = " << tempAccno;
-
-        fileptr.open("customer_account.txt", ios::app);
-        fileptr << tempAccno;
-        fileptr << " = " << name << endl;
-        fileptr.close();
-
-        cout << endl;
-
-        fileptr.open("customer_account_status.txt", ios::app);
-        fileptr << tempAccno << " = Inactive" << endl;
-
-        fileptr.close();
-
-        account_activation_request(tempAccno, name, 1);
-
-        break;
-
-    case 2:
-        fileptr.open("cashier_account.txt", ios::in);
-        while (getline(fileptr, str))
-        {
-            tempAccno++;
-        }
-        fileptr.close();
-
-        cout << "Your temporary " << name1 << " no is = " << tempAccno;
-
-        fileptr.open("cashier_account.txt", ios::app);
-        fileptr << tempAccno;
-        fileptr << " = " << name << endl;
-        fileptr.close();
-
-        cout << endl;
-
-        fileptr.open("cashier_account_status.txt", ios::app);
-        fileptr << tempAccno << " = Inactive" << endl;
-        fileptr.close();
-
-        account_activation_request(tempAccno, name, 2);
-
-        break;
-    }
-}
-
-// account_activation_request function = This will be used to send request to cashier ir manager.
-void account_activation_request(int no, string name, int user)
-{
+    /*
+    credit card
+    loan-all types
+    remove account
+    */
     string str;
     int count;
 
@@ -907,31 +934,127 @@ void account_activation_request(int no, string name, int user)
 
         break;
     case 2:
-        count = 1;
-
-        fileptr.open("request_manager.txt", ios::in);
-        while (getline(fileptr, str))
+        // modifications =
+        //  count func can be taken common
+        //  customer pending request can be taken common
+        switch (opt)
         {
-            count++;
+        case 1:
+            /* code */
+            count = 1;
+            fileptr.open("request_manager.txt", ios::in);
+            while (getline(fileptr, str))
+            {
+                count++;
+            }
+            fileptr.close();
+
+            fileptr.open("request_manager.txt", ios::app);
+            fileptr << count << ". " << name << ", account no. = " << no << ". Customer wants a credit card. Please approve." << endl;
+            fileptr.close();
+
+            fileptr.open("pending_request_customer.txt", ios::in);
+            while (getline(fileptr, str))
+            {
+                count++;
+            }
+            fileptr.close();
+
+            fileptr.open("pending_request_customer.txt", ios::app);
+            fileptr << count << ". " << name << " , id no. = " << no << ". The request for credit card is sent to manager. They will approve the request shotly.Please wait." << endl;
+            fileptr.close();
+
+            cout << endl;
+            break;
+        case 2:
+            /* code */
+            count = 1;
+            fileptr.open("request_manager.txt", ios::in);
+            while (getline(fileptr, str))
+            {
+                count++;
+            }
+            fileptr.close();
+
+            fileptr.open("request_manager.txt", ios::app);
+            fileptr << count << ". " << name << ", account no. = " << no << ". Customer wants a " << loanName << " loan. Please approve." << endl;
+            fileptr.close();
+
+            fileptr.open("pending_request_customer.txt", ios::in);
+            while (getline(fileptr, str))
+            {
+                count++;
+            }
+            fileptr.close();
+
+            fileptr.open("pending_request_customer.txt", ios::app);
+            fileptr << count << ". " << name << " , id no. = " << no << ". The request for a " << loanName << " loan is sent to manager. They will approve the request shotly.Please wait." << endl;
+            fileptr.close();
+
+            cout << endl;
+            break;
+        case 3:
+            /* code */
+            count = 1;
+            fileptr.open("request_manager.txt", ios::in);
+            while (getline(fileptr, str))
+            {
+                count++;
+            }
+            fileptr.close();
+
+            fileptr.open("request_manager.txt", ios::app);
+            fileptr << count << ". " << name << ", account no. = " << no << ". Customer wants to close account. Please approve." << endl;
+            fileptr.close();
+
+            fileptr.open("pending_request_customer.txt", ios::in);
+            while (getline(fileptr, str))
+            {
+                count++;
+            }
+            fileptr.close();
+
+            fileptr.open("pending_request_customer.txt", ios::app);
+            fileptr << count << ". " << name << " , id no. = " << no << ". The request for closing account is sent to manager. They will approve the request shotly.Please wait." << endl;
+            fileptr.close();
+
+            cout << endl;
+            break;
+
+        default:
+            break;
         }
-        fileptr.close();
-
-        fileptr.open("request_manager.txt", ios::app);
-        fileptr << count << ". " << name << " created an id, id no. = " << no << ". Please approve." << endl;
-        fileptr.close();
-
-        fileptr.open("pending_request_cashier.txt", ios::in);
-        while (getline(fileptr, str))
-        {
-            count++;
-        }
-        fileptr.close();
-
-        fileptr.open("pending_request_cashier.txt", ios::app);
-        fileptr << count << ". " << name << " , id no. = " << no << ". The request of opening an id is sent to manager. They will approve the request shotly.Please wait." << endl;
-        fileptr.close();
-
-        cout << endl;
-        break;
     }
+}
+// cashier request which will be sent to  manager
+void cashier::cashier_request(int no, string name)
+{
+    string str;
+    int count;
+
+    count = 1;
+
+    fileptr.open("request_manager.txt", ios::in);
+    while (getline(fileptr, str))
+    {
+        count++;
+    }
+    fileptr.close();
+
+    fileptr.open("request_manager.txt", ios::app);
+    fileptr << count << ". " << name << " created an id, id no. = " << no << ". Please approve." << endl;
+    fileptr.close();
+
+    fileptr.open("pending_request_cashier.txt", ios::in);
+    while (getline(fileptr, str))
+    {
+        count++;
+    }
+    fileptr.close();
+
+    fileptr.open("pending_request_cashier.txt", ios::app);
+    fileptr << count << ". " << name << " , id no. = " << no << ". The request of opening an id is sent to manager. They will approve the request shotly.Please wait." << endl;
+    fileptr.close();
+
+    cout << endl;
 }
