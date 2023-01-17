@@ -8,6 +8,8 @@ using namespace std;
 fstream fileptr;
 int balance;
 
+void search_account(int accNo);
+
 class bank
 {
 protected:
@@ -17,22 +19,22 @@ public:
     void bankMenu();
 
     void addAccount();
-    void removeAccount();
+    void removeAccount(int accNo);
 
-    void depositMoney();
-    void withdrawMoney();
+    void depositMoney(int accNo);
+    void withdrawMoney(int accNo);
 
-    void card();
+    void card(int accNo);
     void applyCard();
     void closeCard();
 
-    void fixedDiposit();
+    void fixedDiposit(int accNo);
 
-    void applyPassbook();
+    void applyPassbook(int accNo);
 
-    void applyCheckbook();
+    void applyCheckbook(int accNo);
 
-    void loan();
+    void loan(int accNo);
     void homeLone();
     void goldLone();
     void studentLoan();
@@ -76,7 +78,7 @@ public:
     void loan_calculate();
 
     void customer_request(int no, string name, int user, int opt, string loanName);
-    void Pending_customer_request();
+    void Pending_customer_request(int accNo);
 };
 
 int main()
@@ -529,10 +531,9 @@ void customer::customer_login()
             }
             else
             {
-                cout<<"Your account is still not activited. Pleae wait, your account will be activited shortly.";
+                cout << "Your account is still not activited. Pleae wait, your account will be activited shortly.";
                 return;
             }
-            
 
             count++;
         }
@@ -582,31 +583,31 @@ void customer::customer_login()
         switch (opt)
         {
         case 1:
-            B.depositMoney();
+            B.depositMoney(accoutNo);
             break;
         case 2:
-            B.withdrawMoney();
+            B.withdrawMoney(accoutNo);
             break;
         case 3:
-            B.card();
+            B.card(accoutNo);
             break;
         case 4:
-            B.fixedDiposit();
+            B.fixedDiposit(accoutNo);
             break;
         case 5:
-            B.applyPassbook();
+            B.applyPassbook(accoutNo);
             break;
         case 6:
-            B.applyCheckbook();
+            B.applyCheckbook(accoutNo);
             break;
         case 7:
-            B.loan();
+            B.loan(accoutNo);
             break;
         case 8:
-            B.removeAccount();
+            B.removeAccount(accoutNo);
             break;
         case 9:
-            C.Pending_customer_request();
+            C.Pending_customer_request(accoutNo);
             break;
 
         default:
@@ -657,10 +658,9 @@ void bank::addAccount()
     customer c;
     c.customer_request(tempAccno, name, 1, 0, "null");
 
-    /*
-    code for storing the request
-
-    */
+    fileptr.open("balance.txt", ios::app);
+    fileptr << 0 << endl;
+    fileptr.close();
 
     cout << "Your account opening request is sent to the bank cashier." << endl
          << "After approval your accout will be opened." << endl
@@ -762,13 +762,32 @@ void customer::loan_calculate()
 }
 
 // Customer class -> customerMenu -> login function's subfunctions
-void bank::depositMoney()
+void bank::depositMoney(int accNo)
+{
+    int amount, balance;
+    cin >> amount;
+    int count, i = 1;
+    string str;
+    count = (accNo - 1000000) + 1;
+
+    fileptr.open("Balance.txt", ios::app);
+
+    while (i < count)
+    {
+        getline(fileptr, str);
+        /* code */
+    }
+    fileptr >> balance;
+    balance += amount;
+
+    fileptr << amount;
+
+    fileptr.close();
+}
+void bank::withdrawMoney(int accNo)
 {
 }
-void bank::withdrawMoney()
-{
-}
-void bank::card()
+void bank::card(int accNo)
 {
     int opt;
     cout << "\nSelect a option = " << endl
@@ -796,16 +815,16 @@ void bank::card()
         break;
     }
 }
-void bank::fixedDiposit()
+void bank::fixedDiposit(int accNo)
 {
 }
-void bank::applyPassbook()
+void bank::applyPassbook(int accNo)
 {
 }
-void bank::applyCheckbook()
+void bank::applyCheckbook(int accNo)
 {
 }
-void bank::loan()
+void bank::loan(int accNo)
 {
     int opt;
     cout << "\nSelect a option = " << endl
@@ -841,10 +860,10 @@ void bank::loan()
         break;
     }
 }
-void bank::removeAccount()
+void bank::removeAccount(int accNo)
 {
 }
-void customer::Pending_customer_request()
+void customer::Pending_customer_request(int accNo)
 {
     fileptr.open("pending_request_customer.txt", ios::in);
     string str;
@@ -1057,4 +1076,16 @@ void cashier::cashier_request(int no, string name)
     fileptr.close();
 
     cout << endl;
+}
+
+void search_account(int accNo)
+{
+    int count;
+    count = (accNo - 1000000) + 1;
+
+    for (int i = 1; i <= count; i++)
+    {
+
+        /* code */
+    }
 }

@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include <string>
+// #include <string>
 using namespace std;
 fstream fileptr;
 
@@ -221,14 +221,18 @@ int main()
     // }
 
     // fileptr.close();
-    double accoutNo;
-    char pass[20];
-    int num;
-    string str;
-    fileptr.open("customer_account_status.txt", ios::in);
 
-    cin >> accoutNo;
-    cin >> pass;
+    // double accoutNo;
+    // char pass[20];
+    // int num;
+    // int flag = 0;
+    // int count = 1, i = 1;
+    // char str1[20];
+    // string str;
+    // fileptr.open("customer_account_status.txt", ios::in);
+
+    // cin >> accoutNo;
+    // cin >> pass;
 
     // fileptr >> num;
 
@@ -249,9 +253,6 @@ int main()
 
     // cout << num << endl;
     // // cout << sizeof(num);
-    int flag = 0;
-    int count = 1, i = 1;
-    char str1[20];
     // while (!fileptr.eof())
     // {
     //     fileptr >> num;
@@ -275,43 +276,93 @@ int main()
     //     cout << "Account is incative";
     // }
 
-    while (!fileptr.eof())
+    //     while (!fileptr.eof())
+    //     {
+    //         fileptr >> num;
+    //         cout << num << endl;
+    //         getline(fileptr, str);
+
+    //         if (num == accoutNo)
+    //         {
+    //             fileptr.close();
+    //             cout << "Account found" << endl;
+    //             fileptr.open("customer_pass.txt", ios::in);
+
+    //             while (i <= count)
+    //             {
+    //                 fileptr>>str1;
+    //                 i++;
+    //             }
+    //             fileptr.close();
+    //             if (!strcmp(pass,str1))
+    //             {
+    //                 cout << "correct passsword";
+    //                 flag = 1;
+    //                 break;
+    //             }
+    //             break;
+    //         }
+    //         count++;
+    //     }
+
+    // if(flag==1)
+    // {
+    //     cout<<"login successful";
+    // }
+    // else
+    // {
+    //     cout<<"Error";
+    // }
+    double accNo;
+    cin >> accNo;
+
+    int amount, balance;
+    cin >> amount;
+    int count, i = 1;
+    string str, str1;
+    count = (accNo - 1000000) + 1;
+
+    fileptr.open("balance.txt", ios::in);
+
+    while (i <= count)
     {
-        fileptr >> num;
-        cout << num << endl;
         getline(fileptr, str);
-
-        if (num == accoutNo)
-        {
-            fileptr.close();
-            cout << "Account found" << endl;
-            fileptr.open("customer_pass.txt", ios::in);
-
-            while (i <= count)
-            {
-                fileptr>>str1;
-                i++;
-            }
-            fileptr.close();
-            if (!strcmp(pass,str1))
-            {
-                cout << "correct passsword";
-                flag = 1;
-                break;
-            }
-            break;
-        }
-        count++;
+        // cout << str << endl;
+        i++;
+        /* code */
     }
+    fileptr.seekp(-4, ios::cur);
+    fileptr >> balance;
+    cout << balance << endl;
 
-if(flag==1)
-{
-    cout<<"login successful";
-}
-else
-{
-    cout<<"Error";
-}
+    fileptr.open("balance.txt", ios::app);
+    balance += amount;
+    cout << balance;
+    fileptr.seekp(-2, ios::cur);
+
+    fileptr << balance;
+    getline(fileptr, str);
+    cout << str << endl;
+    fileptr.seekp(-3, ios::cur);
+    // getline(fileptr, str);
+    // cout << str << endl;
+    // fileptr.seekg(0, ios::beg);
+    // getline(fileptr, str);
+    // cout << str << endl;
+
+    // while (getline(fileptr, str1))
+    // {
+    //     str1.replace(str1.find(str), str.length(), "");
+    //     fileptr << str1;
+    // }
+    // fileptr.seekg(-2, ios::cur);
+
+    // fileptr.open("balance.txt", ios::app);
+    // fileptr << balance;
+
+    fileptr.close();
+
+    // fileptr.close();
 
     return 0;
 }
