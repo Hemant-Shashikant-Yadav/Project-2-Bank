@@ -764,28 +764,109 @@ void customer::loan_calculate()
 // Customer class -> customerMenu -> login function's subfunctions
 void bank::depositMoney(int accNo)
 {
-    int amount, balance;
+    cout<<"Enter ammount you want to add = ";
+    int amount, balance, count1;
     cin >> amount;
-    int count, i = 1;
+    int count = 0, i = 0, temp;
     string str;
-    count = (accNo - 1000000) + 1;
 
-    fileptr.open("Balance.txt", ios::app);
+    count1 = (accNo - 1000000);
+    
+    fileptr.open("balance.txt", ios::in);
+    while (getline(fileptr, str))
+    {
+        count++;
+    }
+    fileptr.close();
 
+    int *num = (int *)malloc(count * sizeof(int));
+
+    fileptr.open("balance.txt", ios::in);
     while (i < count)
     {
-        getline(fileptr, str);
-        /* code */
+        fileptr >> temp;
+        (*num) = temp;
+        num++;
+        i++;
     }
-    fileptr >> balance;
-    balance += amount;
+    fileptr.close();
 
-    fileptr << amount;
+    num = num - count;
+    while (i--)
+    {
+        cout << *num << endl;
+        num++;
+    }
 
+    num = num - count;
+    *(num + count1) += amount;
+
+    i = 0;
+    fileptr.open("balance.txt", ios::out);
+    while (i < count)
+    {
+        fileptr << *num << endl;
+        num++;
+        i++;
+    }
     fileptr.close();
 }
 void bank::withdrawMoney(int accNo)
 {
+    cout<<"Enter ammount you want to wirhdraw = ";
+    int amount, balance, count1;
+    cin >> amount;
+    int count = 0, i = 0, temp;
+    string str;
+
+    count1 = (accNo - 1000000);
+    
+    fileptr.open("balance.txt", ios::in);
+    while (getline(fileptr, str))
+    {
+        count++;
+    }
+    fileptr.close();
+
+    int *num = (int *)malloc(count * sizeof(int));
+
+    fileptr.open("balance.txt", ios::in);
+    while (i < count)
+    {
+        fileptr >> temp;
+        (*num) = temp;
+        num++;
+        i++;
+    }
+    fileptr.close();
+
+    num = num - count;
+    while (i--)
+    {
+        cout << *num << endl;
+        num++;
+    }
+
+    num = num - count;
+    
+    if (amount > *(num + count1))
+    {
+        cout << "Insufficient balance !!!\nTry again.";
+    }
+    else
+    {
+        *(num + count1) -= amount;
+    }
+
+    i = 0;
+    fileptr.open("balance.txt", ios::out);
+    while (i < count)
+    {
+        fileptr << *num << endl;
+        num++;
+        i++;
+    }
+    fileptr.close();
 }
 void bank::card(int accNo)
 {
@@ -1076,16 +1157,4 @@ void cashier::cashier_request(int no, string name)
     fileptr.close();
 
     cout << endl;
-}
-
-void search_account(int accNo)
-{
-    int count;
-    count = (accNo - 1000000) + 1;
-
-    for (int i = 1; i <= count; i++)
-    {
-
-        /* code */
-    }
 }

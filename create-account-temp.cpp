@@ -313,37 +313,31 @@ int main()
     // {
     //     cout<<"Error";
     // }
-    double accNo;
-    cin >> accNo;
+    // double accNo;
+    // cin >> accNo;
 
-    int amount, balance;
-    cin >> amount;
-    int count, i = 1;
-    string str, str1;
-    count = (accNo - 1000000) + 1;
+    // fileptr.open("balance.txt", ios::in);
 
-    fileptr.open("balance.txt", ios::in);
+    // while (i <= count)
+    // {
+    //     getline(fileptr, str);
+    //     // cout << str << endl;
+    //     i++;
+    //     /* code */
+    // }
+    // fileptr.seekp(-4, ios::cur);
+    // fileptr >> balance;
+    // cout << balance << endl;
 
-    while (i <= count)
-    {
-        getline(fileptr, str);
-        // cout << str << endl;
-        i++;
-        /* code */
-    }
-    fileptr.seekp(-4, ios::cur);
-    fileptr >> balance;
-    cout << balance << endl;
+    // fileptr.open("balance.txt", ios::app);
+    // balance += amount;
+    // cout << balance;
+    // fileptr.seekp(-2, ios::cur);
 
-    fileptr.open("balance.txt", ios::app);
-    balance += amount;
-    cout << balance;
-    fileptr.seekp(-2, ios::cur);
-
-    fileptr << balance;
-    getline(fileptr, str);
-    cout << str << endl;
-    fileptr.seekp(-3, ios::cur);
+    // fileptr << balance;
+    // getline(fileptr, str);
+    // cout << str << endl;
+    // fileptr.seekp(-3, ios::cur);
     // getline(fileptr, str);
     // cout << str << endl;
     // fileptr.seekg(0, ios::beg);
@@ -360,9 +354,83 @@ int main()
     // fileptr.open("balance.txt", ios::app);
     // fileptr << balance;
 
-    fileptr.close();
+    // fileptr.close();
 
     // fileptr.close();
+    double accNo;
+    cin >> accNo;
+    int amount, balance, count1;
+    cin >> amount;
+    // string str, str1;
+    count1 = (accNo - 1000000);
+
+    int count = 0, i = 0, temp;
+    string str;
+    fileptr.open("balance.txt", ios::in);
+    while (getline(fileptr, str))
+    {
+        count++;
+    }
+    fileptr.close();
+
+    cout << count << endl;
+
+    int *num = (int *)malloc(count * sizeof(int));
+
+    fileptr.open("balance.txt", ios::in);
+    while (i < count)
+    {
+        fileptr >> temp;
+        // fileptr.seekg(1, ios::cur);
+        cout << temp << endl;
+        (*num) = temp;
+        num++;
+        i++;
+    }
+    fileptr.close();
+
+    num = num - count;
+    while (i--)
+    {
+        cout << *num << endl;
+        num++;
+    }
+
+    num = num - count;
+
+    if (amount > *(num + count1))
+    {
+        /* code */
+        cout << "Insufficient balance !!!\nTry again.";
+    }
+    else
+    {
+        *(num + count1) -= amount;
+    }
+
+    cout << *(num + count1) << endl;
+
+    // num = num - count1;
+
+    // i = count;
+    // while (i--)
+    // {
+    //     cout << *num << endl;
+    //     num++;
+    // }
+
+    i = 0;
+    fileptr.open("balance.txt", ios::out);
+    while (i < count)
+    {
+        fileptr << *num << endl;
+        // fileptr.seekg(1, ios::cur);
+        // cout << temp << endl;
+        // (*num) = temp;
+        num++;
+        i++;
+    }
+    fileptr.close();
 
     return 0;
 }
