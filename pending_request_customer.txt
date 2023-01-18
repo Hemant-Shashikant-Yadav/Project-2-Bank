@@ -1,8 +1,3 @@
-1. aa , account no. = 1000000. The request of opening an account is sent to cashier. They will approve the request shotly.Please wait.
-2. ee , account no. = 1000001. The request of opening an account is sent to cashier. They will approve the request shotly.Please wait.
-3. aa , account no. = 1000002. The request of opening an account is sent to cashier. They will approve the request shotly.Please wait.
-4. ff , account no. = 1000003. The request of opening an account is sent to cashier. They will approve the request shotly.Please wait.
-5. aa , account no. = 1000000. The request of opening an account is sent to cashier. They will approve the request shotly.Please wait.
-6. ss , account no. = 1000001. The request of opening an account is sent to cashier. They will approve the request shotly.Please wait.
-7. ww , account no. = 1000002. The request of opening an account is sent to cashier. They will approve the request shotly.Please wait.
-8. rr , account no. = 1000003. The request of opening an account is sent to cashier. They will approve the request shotly.Please wait.
+aa , account no. = 1000000. The request of opening an account is sent to cashier. They will approve the request shotly.Please wait.
+ae , account no. = 1000001. The request of opening an account is sent to cashier. They will approve the request shotly.Please wait.
+ef , account no. = 1000002. The request of opening an account is sent to cashier. They will approve the request shotly.Please wait.

@@ -1,4 +1,2 @@
-xt", ios::app);
-    // fileptr << balance;
-
-    // fileptr.close();
+ = str2;
+        // str1++;

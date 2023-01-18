@@ -246,191 +246,304 @@ int main()
     // cout << num << endl;
     // // fileptr.seekg(10, ios::cur );
     // // fileptr.seekg(38, ios::beg );
-    // fileptr.seekg(10, ios::cur );
-    // fileptr.
+    // // fileptr.seekg(10, ios::cur );
+    // // fileptr.
 
-    // fileptr >> num;
+    // // fileptr >> num;
 
-    // cout << num << endl;
-    // // cout << sizeof(num);
-    // while (!fileptr.eof())
-    // {
-    //     fileptr >> num;
-    //     cout << num << endl;
-    //     getline(fileptr, str);
-    //     if (str == " =   active")
-    //     {
-    //         flag = 1;
-    //         break;
-    //     }
-    //     /* code */
-    // }
+    // // cout << num << endl;
+    // // // cout << sizeof(num);
+    // // while (!fileptr.eof())
+    // // {
+    // //     fileptr >> num;
+    // //     cout << num << endl;
+    // //     getline(fileptr, str);
+    // //     if (str == " =   active")
+    // //     {
+    // //         flag = 1;
+    // //         break;
+    // //     }
+    // //     /* code */
+    // // }
 
-    // fileptr.close();
-    // if (flag == 1)
-    // {
-    //     cout << "Login successful";
-    // }
-    // else
-    // {
-    //     cout << "Account is incative";
-    // }
+    // // fileptr.close();
+    // // if (flag == 1)
+    // // {
+    // //     cout << "Login successful";
+    // // }
+    // // else
+    // // {
+    // //     cout << "Account is incative";
+    // // }
 
-    //     while (!fileptr.eof())
-    //     {
-    //         fileptr >> num;
-    //         cout << num << endl;
-    //         getline(fileptr, str);
+    // //     while (!fileptr.eof())
+    // //     {
+    // //         fileptr >> num;
+    // //         cout << num << endl;
+    // //         getline(fileptr, str);
 
-    //         if (num == accoutNo)
-    //         {
-    //             fileptr.close();
-    //             cout << "Account found" << endl;
-    //             fileptr.open("customer_pass.txt", ios::in);
+    // //         if (num == accoutNo)
+    // //         {
+    // //             fileptr.close();
+    // //             cout << "Account found" << endl;
+    // //             fileptr.open("customer_pass.txt", ios::in);
 
-    //             while (i <= count)
-    //             {
-    //                 fileptr>>str1;
-    //                 i++;
-    //             }
-    //             fileptr.close();
-    //             if (!strcmp(pass,str1))
-    //             {
-    //                 cout << "correct passsword";
-    //                 flag = 1;
-    //                 break;
-    //             }
-    //             break;
-    //         }
-    //         count++;
-    //     }
+    // //             while (i <= count)
+    // //             {
+    // //                 fileptr>>str1;
+    // //                 i++;
+    // //             }
+    // //             fileptr.close();
+    // //             if (!strcmp(pass,str1))
+    // //             {
+    // //                 cout << "correct passsword";
+    // //                 flag = 1;
+    // //                 break;
+    // //             }
+    // //             break;
+    // //         }
+    // //         count++;
+    // //     }
 
-    // if(flag==1)
-    // {
-    //     cout<<"login successful";
-    // }
-    // else
-    // {
-    //     cout<<"Error";
-    // }
+    // // if(flag==1)
+    // // {
+    // //     cout<<"login successful";
+    // // }
+    // // else
+    // // {
+    // //     cout<<"Error";
+    // // }
+    // // double accNo;
+    // // cin >> accNo;
+
+    // // fileptr.open("balance.txt", ios::in);
+
+    // // while (i <= count)
+    // // {
+    // //     getline(fileptr, str);
+    // //     // cout << str << endl;
+    // //     i++;
+    // //     /* code */
+    // // }
+    // // fileptr.seekp(-4, ios::cur);
+    // // fileptr >> balance;
+    // // cout << balance << endl;
+
+    // // fileptr.open("balance.txt", ios::app);
+    // // balance += amount;
+    // // cout << balance;
+    // // fileptr.seekp(-2, ios::cur);
+
+    // // fileptr << balance;
+    // // getline(fileptr, str);
+    // // cout << str << endl;
+    // // fileptr.seekp(-3, ios::cur);
+    // // getline(fileptr, str);
+    // // cout << str << endl;
+    // // fileptr.seekg(0, ios::beg);
+    // // getline(fileptr, str);
+    // // cout << str << endl;
+
+    // // while (getline(fileptr, str1))
+    // // {
+    // //     str1.replace(str1.find(str), str.length(), "");
+    // //     fileptr << str1;
+    // // }
+    // // fileptr.seekg(-2, ios::cur);
+
+    // // fileptr.open("balance.txt", ios::app);
+    // // fileptr << balance;
+
+    // // fileptr.close();
+
+    // // fileptr.close();
     // double accNo;
     // cin >> accNo;
+    // int amount, balance, count1;
+    // cin >> amount;
+    // // string str, str1;
+    // count1 = (accNo - 1000000);
+
+    // int count = 0, i = 0, temp;
+    // string str;
+    // fileptr.open("balance.txt", ios::in);
+    // while (getline(fileptr, str))
+    // {
+    //     count++;
+    // }
+    // fileptr.close();
+
+    // cout << count << endl;
+
+    // int *num = (int *)malloc(count * sizeof(int));
 
     // fileptr.open("balance.txt", ios::in);
-
-    // while (i <= count)
+    // while (i < count)
     // {
-    //     getline(fileptr, str);
-    //     // cout << str << endl;
+    //     fileptr >> temp;
+    //     // fileptr.seekg(1, ios::cur);
+    //     cout << temp << endl;
+    //     (*num) = temp;
+    //     num++;
     //     i++;
-    //     /* code */
     // }
-    // fileptr.seekp(-4, ios::cur);
-    // fileptr >> balance;
-    // cout << balance << endl;
-
-    // fileptr.open("balance.txt", ios::app);
-    // balance += amount;
-    // cout << balance;
-    // fileptr.seekp(-2, ios::cur);
-
-    // fileptr << balance;
-    // getline(fileptr, str);
-    // cout << str << endl;
-    // fileptr.seekp(-3, ios::cur);
-    // getline(fileptr, str);
-    // cout << str << endl;
-    // fileptr.seekg(0, ios::beg);
-    // getline(fileptr, str);
-    // cout << str << endl;
-
-    // while (getline(fileptr, str1))
-    // {
-    //     str1.replace(str1.find(str), str.length(), "");
-    //     fileptr << str1;
-    // }
-    // fileptr.seekg(-2, ios::cur);
-
-    // fileptr.open("balance.txt", ios::app);
-    // fileptr << balance;
-
     // fileptr.close();
 
-    // fileptr.close();
-    double accNo;
-    cin >> accNo;
-    int amount, balance, count1;
-    cin >> amount;
-    // string str, str1;
-    count1 = (accNo - 1000000);
-
-    int count = 0, i = 0, temp;
-    string str;
-    fileptr.open("balance.txt", ios::in);
-    while (getline(fileptr, str))
-    {
-        count++;
-    }
-    fileptr.close();
-
-    cout << count << endl;
-
-    int *num = (int *)malloc(count * sizeof(int));
-
-    fileptr.open("balance.txt", ios::in);
-    while (i < count)
-    {
-        fileptr >> temp;
-        // fileptr.seekg(1, ios::cur);
-        cout << temp << endl;
-        (*num) = temp;
-        num++;
-        i++;
-    }
-    fileptr.close();
-
-    num = num - count;
-    while (i--)
-    {
-        cout << *num << endl;
-        num++;
-    }
-
-    num = num - count;
-
-    if (amount > *(num + count1))
-    {
-        /* code */
-        cout << "Insufficient balance !!!\nTry again.";
-    }
-    else
-    {
-        *(num + count1) -= amount;
-    }
-
-    cout << *(num + count1) << endl;
-
-    // num = num - count1;
-
-    // i = count;
+    // num = num - count;
     // while (i--)
     // {
     //     cout << *num << endl;
     //     num++;
     // }
 
-    i = 0;
-    fileptr.open("balance.txt", ios::out);
-    while (i < count)
+    // num = num - count;
+
+    // if (amount > *(num + count1))
+    // {
+    //     /* code */
+    //     cout << "Insufficient balance !!!\nTry again.";
+    // }
+    // else
+    // {
+    //     *(num + count1) -= amount;
+    // }
+
+    // cout << *(num + count1) << endl;
+
+    // // num = num - count1;
+
+    // // i = count;
+    // // while (i--)
+    // // {
+    // //     cout << *num << endl;
+    // //     num++;
+    // // }
+
+    // i = 0;
+    // fileptr.open("balance.txt", ios::out);
+    // while (i < count)
+    // {
+    //     fileptr << *num << endl;
+    //     // fileptr.seekg(1, ios::cur);
+    //     // cout << temp << endl;
+    //     // (*num) = temp;
+    //     num++;
+    //     i++;
+    // }
+    // fileptr.close();
+
+    // string str;
+    // int count = 1, opt;
+    // fileptr.open("requesr_cashier.txt", ios::in);
+
+    // while (getline(fileptr, str))
+    // {
+    //     cout << count << ". " << str << endl;
+    //     count++;
+    //     /* code */
+    // }
+    // fileptr.close();
+
+    // cout << "Select option = ";
+    // cin >> opt;
+
+    // // fileptr.seekg(0, ios::beg);
+    // fileptr.open("requesr_cashier.txt", ios::in);
+    // while (opt--)
+    // {
+    //     getline(fileptr, str);
+
+    //     /* code */
+    // }
+    // cout << str;
+
+    // fileptr.close();
+
+    // cout << "Aproove the account opening \n\t1.Yes.\n\t2.No\n Choose option = ";
+    // cin >> opt;
+
+    // if (opt == 1)
+    // {
+    //     string str2;
+    //     int i = 0;
+    //     string *str1 = (string *)malloc(count * sizeof(string));
+    //     fileptr.open("requesr_cashier.txt", ios::in);
+    //     while (i < count)
+    //     {
+    //         // fileptr >> str2;
+    //         getline(fileptr, str2);
+    //         (*str1) = str2;
+    //         str1++;
+    //         i++;
+    //     }
+    //     fileptr.close();
+
+    //     str1 = str1 - count;
+
+    //     while (i--)
+    //     {
+    //         cout << *str1 << endl;
+    //         str1++;
+    //     }
+    //     /* code */
+    // }
+    // else if (opt == 2)
+    // {
+    //     /* code */
+    // }
+
+    string str;
+    int count = 1, opt;
+    fileptr.open("requesr_cashier.txt", ios::in);
+
+    while (getline(fileptr, str))
     {
-        fileptr << *num << endl;
-        // fileptr.seekg(1, ios::cur);
-        // cout << temp << endl;
-        // (*num) = temp;
-        num++;
-        i++;
+        cout << count << ". " << str << endl;
+        count++;
+        /* code */
     }
+    cout << count << endl;
     fileptr.close();
+
+    // string str2;
+    // int i = 0;
+    // string *str1 = (string *)malloc((count-1) * sizeof(string));
+    // fileptr.open("requesr_cashier.txt", ios::in);
+    // while (i < (count - 1))
+    // {
+    //     // fileptr >> str2;
+    //     getline(fileptr, str2);
+    //     cout << str2 << endl;
+    //     (*(str1 + i)) = str2;
+    //     cout << *str1 << endl;
+    //     // str1++;
+    //     i++;
+    // }
+    // fileptr.close();
+
+    // // str1 = str1 - count;
+
+    // // while (i--)
+    // // {
+    // //     cout << *str1 << endl;
+    // //     str1++;
+    // // }
+
+    // char str[100];
+    // int i = 0;
+    // char* str1[100] = (char *)malloc((count-1) * sizeof(char));
+    // fileptr.open("requesr_cashier.txt", ios::in);
+    // while (i < (count - 1))
+    // {
+    //     // fileptr >> str2;
+    //     getline(fileptr, str2);
+    //     cout << str2 << endl;
+    //     (*(str1 + i)) = str2;
+    //     cout << *str1 << endl;
+    //     // str1++;
+    //     i++;
+    // }
+    // fileptr.close();
 
     return 0;
 }
