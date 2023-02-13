@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <string.h>
+
 using namespace std;
 
 // define all veriables in bank class
@@ -263,7 +265,8 @@ void manager::manager_login()
         cin >> accoutNo;
         getchar();
         cout << "Enter the password = ";
-        gets(password);
+        // gets(password);
+        cin.getline(password, sizeof password);
 
         /*
             check account status (active / inactive)
@@ -343,7 +346,8 @@ void cashier::cashier_login()
         cin >> accoutNo;
         getchar();
         cout << "Enter the password = ";
-        gets(password);
+        // gets(password);
+        cin.getline(password, sizeof password);
 
         /*
             check account status (active / inactive)
@@ -413,10 +417,12 @@ void cashier::addAccountCashier()
     string str;
 
     cout << "Enter the name = ";
-    gets(name);
+    // gets(name);
+    cin.getline(name, sizeof name);
 
     cout << "Set password (case sencesitive)= ";
-    gets(password);
+    // gets(password);
+    cin.getline(password, sizeof password);
 
     fileptr.open("cashier_account.txt", ios::in);
     while (getline(fileptr, str))
@@ -453,11 +459,10 @@ void cashier::addAccountCashier()
 // Cashier class -> CashierMenu -> login function's subfunctions
 void cashier::recived_cashier_request()
 {
-
 }
 void cashier::Pending_cashier_request()
 {
-    fileptr.open("pending_request_cashier.txt", ios::in); 
+    fileptr.open("pending_request_cashier.txt", ios::in);
     string str;
 
     fileptr.seekp(0, ios::end);
@@ -501,7 +506,8 @@ void customer::customer_login()
         cin >> accoutNo;
         getchar();
         cout << "Enter the password = ";
-        gets(password);
+        // gets(password);
+        cin.getline(password, sizeof password);
 
         fileptr.open("customer_account_status.txt", ios::in);
         while (!fileptr.eof())
@@ -626,10 +632,12 @@ void bank::addAccount()
     string str;
 
     cout << "Enter the name = ";
-    gets(name);
+    // gets(name);
+    cin.getline(name, sizeof name);
 
     cout << "Set password (case sencesitive)= ";
-    gets(password);
+    // gets(password);
+    cin.getline(password, sizeof password);
 
     fileptr.open("customer_account.txt", ios::in);
     while (getline(fileptr, str))

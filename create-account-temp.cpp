@@ -492,20 +492,53 @@ int main()
     //     /* code */
     // }
 
-    string str;
-    int count = 1, opt;
-    fileptr.open("requesr_cashier.txt", ios::in);
-
-    while (getline(fileptr, str))
-    {
-        cout << count << ". " << str << endl;
-        count++;
-        /* code */
-    }
-    cout << count << endl;
-    fileptr.close();
-
-    // string str2;
+    // strcpy(char_array, s.c_str());
+    // /
+    // /    string str;
+    // /    int count = 1, opt;
+    // /    fileptr.open("requesr_cashier.txt", ios::in);
+    // /
+    // /    while (getline(fileptr, str))
+    // /    {
+    // /
+    // /        count++;
+    // /    }
+    // /
+    // /    char *q[count];
+    // /
+    // /    int i = 0;
+    // /    while (getline(fileptr, str))
+    // /    {
+    // /        // cout << count << ". " << str << endl;
+    // /        int n = str.length() + 1;
+    // /
+    // /        *(q + i) = (char *)malloc(n * sizeof(char));
+    // /
+    // /        // strcpy((q+i), str.c_str());
+    // /        // strcpy(*(q+i), str.c_str());
+    // /        // *(q+i) = str.c_str();
+    // /        *q[str.length()] = '\0';
+    // /
+    // /        for (int i = 0; i < str.length(); i++)
+    // /        {
+    // /            *(q[i]) = str[i];
+    // /        }
+    // /
+    // /        i++;
+    // /    }
+    // /    i = 0;
+    // /
+    // /    while (i < count)
+    // /    {
+    // /        cout << count << ". " << q[i] << endl;
+    // /
+    // /        i++;
+    // /    }
+    // /
+    // /    // cout << count << endl;
+    // /    fileptr.close();
+    // /
+    // /    // string str2;
     // int i = 0;
     // string *str1 = (string *)malloc((count-1) * sizeof(string));
     // fileptr.open("requesr_cashier.txt", ios::in);
@@ -544,6 +577,60 @@ int main()
     //     i++;
     // }
     // fileptr.close();
+
+    string str;
+    int count = 1, opt;
+    ifstream Read_file;
+    ofstream Write_file;
+
+    Read_file.open("requesr_cashier.txt", ios::in);
+    Write_file.open("requesr_cashier_temp.txt", ios::out);
+    while (getline(Read_file, str))
+    {
+        count++;
+    }
+    cout << count << endl;
+    Read_file.close();
+    Read_file.open("requesr_cashier.txt", ios::in);
+
+    // getline(Read_file, str);
+    cout << str;
+    for (int i = 1; i <= count; i++)
+    {
+        while (getline(Read_file, str))
+        {
+            cout << str << endl;
+            // if (i == (accno - 100000))
+            // {
+            cout << "Choose option:\n1.Varify account\n2. Do not verify account.\nOption = ";
+            cin >> opt;
+
+            if (opt == 1)
+            {
+                Write_file << "0" << endl;
+                continue;
+            }
+            // }
+            Write_file << str << endl;
+        }
+    }
+
+    Read_file.close();
+    Write_file.close();
+
+    Read_file.open("requesr_cashier_temp.txt", ios::in);
+    Write_file.open("requesr_cashier.txt", ios::out);
+
+    while (getline(Read_file, str))
+    {
+        cout << str << endl;
+        Write_file << str << endl;
+    }
+
+    Read_file.close();
+    Write_file.close();
+
+    fileptr.close();
 
     return 0;
 }
