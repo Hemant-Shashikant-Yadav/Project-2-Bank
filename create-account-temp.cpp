@@ -563,54 +563,99 @@ int main()
     // // }
 
     // char str[100];
-    // int i = 0;
-    // char* str1[100] = (char *)malloc((count-1) * sizeof(char));
-    // fileptr.open("requesr_cashier.txt", ios::in);
-    // while (i < (count - 1))
+    // // int i = 0;
+    // // char* str1[100] = (char *)malloc((count-1) * sizeof(char));
+    // // fileptr.open("requesr_cashier.txt", ios::in);
+    // // while (i < (count - 1))
+    // // {
+    // //     // fileptr >> str2;
+    // //     getline(fileptr, str2);
+    // //     cout << str2 << endl;
+    // //     (*(str1 + i)) = str2;
+    // //     cout << *str1 << endl;
+    // //     // str1++;
+    // //     i++;
+    // // }
+    // // fileptr.close();
+
+    // string str;
+    // int count = 1, opt;
+    // ifstream Read_file;
+    // ofstream Write_file;
+
+    // Read_file.open("requesr_cashier.txt", ios::in);
+    // Write_file.open("requesr_cashier_temp.txt", ios::out);
+    // while (getline(Read_file, str))
     // {
-    //     // fileptr >> str2;
-    //     getline(fileptr, str2);
-    //     cout << str2 << endl;
-    //     (*(str1 + i)) = str2;
-    //     cout << *str1 << endl;
-    //     // str1++;
-    //     i++;
+    //     count++;
     // }
+    // cout << count << endl;
+    // Read_file.close();
+    // Read_file.open("requesr_cashier.txt", ios::in);
+
+    // // getline(Read_file, str);
+    // cout << str;
+    // for (int i = 1; i <= count; i++)
+    // {
+    //     while (getline(Read_file, str))
+    //     {
+    //         if (str != "0")
+    //         {
+    //             cout << str << endl;
+    //             cout << "Choose option:\n1.Varify account\n2. Do not verify account.\nOption = ";
+    //             cin >> opt;
+
+    //             if (opt == 1)
+    //             {
+    //                 Write_file << "0" << endl;
+    //                 continue;
+    //             }
+    //         }
+    //         Write_file << str << endl;
+    //     }
+    // }
+
+    // Read_file.close();
+    // Write_file.close();
+
+    // Read_file.open("requesr_cashier_temp.txt", ios::in);
+    // Write_file.open("requesr_cashier.txt", ios::out);
+
+    // while (getline(Read_file, str))
+    // {
+    //     Write_file << str << endl;
+    // }
+
+    // Read_file.close();
+    // Write_file.close();
+
     // fileptr.close();
 
     string str;
     int count = 1, opt;
-    ifstream Read_file;
+    ifstream Read_file,Read_file1;
     ofstream Write_file;
 
+    Read_file.open("pending_request_customer.txt", ios::in);
     Read_file.open("requesr_cashier.txt", ios::in);
-    Write_file.open("requesr_cashier_temp.txt", ios::out);
-    while (getline(Read_file, str))
-    {
-        count++;
-    }
-    cout << count << endl;
-    Read_file.close();
-    Read_file.open("requesr_cashier.txt", ios::in);
-
-    // getline(Read_file, str);
-    cout << str;
+    Write_file.open("pending_request_customer_temp.txt", ios::out);
+    
     for (int i = 1; i <= count; i++)
     {
         while (getline(Read_file, str))
         {
-            cout << str << endl;
-            // if (i == (accno - 100000))
-            // {
-            cout << "Choose option:\n1.Varify account\n2. Do not verify account.\nOption = ";
-            cin >> opt;
-
-            if (opt == 1)
+            if (str != "0")
             {
-                Write_file << "0" << endl;
-                continue;
+                cout << str << endl;
+                cout << "Choose option:\n1.Varify account\n2. Do not verify account.\nOption = ";
+                cin >> opt;
+
+                if (opt == 1)
+                {
+                    Write_file << "0" << endl;
+                    continue;
+                }
             }
-            // }
             Write_file << str << endl;
         }
     }
@@ -623,7 +668,6 @@ int main()
 
     while (getline(Read_file, str))
     {
-        cout << str << endl;
         Write_file << str << endl;
     }
 

@@ -459,6 +459,58 @@ void cashier::addAccountCashier()
 // Cashier class -> CashierMenu -> login function's subfunctions
 void cashier::recived_cashier_request()
 {
+    string str;
+    int count = 1, opt;
+    ifstream Read_file;
+    ofstream Write_file;
+
+    Read_file.open("requesr_cashier.txt", ios::in);
+    Write_file.open("requesr_cashier_temp.txt", ios::out);
+    while (getline(Read_file, str))
+    {
+        count++;
+    }
+    cout << count << endl;
+    Read_file.close();
+    Read_file.open("requesr_cashier.txt", ios::in);
+
+    // getline(Read_file, str);
+    cout << str;
+    for (int i = 1; i <= count; i++)
+    {
+        while (getline(Read_file, str))
+        {
+            if (str != "0")
+            {
+                cout << str << endl;
+                cout << "Choose option:\n1.Varify account\n2. Do not verify account.\nOption = ";
+                cin >> opt;
+
+                if (opt == 1)
+                {
+                    Write_file << "0" << endl;
+                    continue;
+                }
+            }
+            Write_file << str << endl;
+        }
+    }
+
+    Read_file.close();
+    Write_file.close();
+
+    Read_file.open("requesr_cashier_temp.txt", ios::in);
+    Write_file.open("requesr_cashier.txt", ios::out);
+
+    while (getline(Read_file, str))
+    {
+        Write_file << str << endl;
+    }
+
+    Read_file.close();
+    Write_file.close();
+
+    fileptr.close();
 }
 void cashier::Pending_cashier_request()
 {
